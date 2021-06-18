@@ -2,7 +2,7 @@
 <resources>
     <dimen  name="price_textSize">15sp</dimen>
     <dimen name="apartment_title_text_size">20sp</dimen>
-    <dimen name="city_name_text_size" >50sp</dimen>
+    <dimen name="city_name_text_size" >40sp</dimen>
     <dimen name="price_margin">30dp</dimen>
     <dimen name="price_padding">10dp</dimen>
     <dimen name="min_height_text">50dp</dimen>

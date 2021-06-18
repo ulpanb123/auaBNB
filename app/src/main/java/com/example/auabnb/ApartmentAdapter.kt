@@ -36,7 +36,10 @@ class ApartmentAdapter(private val apartments : List<Apartment>, private val con
         viewHolder.apartmentNameTextView.text = apartments[position].getTitle()
 
         //set the image using Glide
-        (Glide.with(context).load(apartments[position].getImage()).centerCrop()).into(viewHolder.apartmentImageView)
+        (Glide.with(context).load(apartments[position].getImage())
+            .centerCrop())
+            .placeholder(R.drawable.loadinggif)
+            .into(viewHolder.apartmentImageView)
 
         //set the price of the apartment
         viewHolder.apartmentPriceTextView.text = apartments[position].getPrice().toString() + " тг"

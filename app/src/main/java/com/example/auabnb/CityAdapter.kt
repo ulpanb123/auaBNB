@@ -37,7 +37,10 @@ class CityAdapter(private val cities : List<City>, private val context: Context)
         viewHolder.cityTextView.text = cities[position].getTitle()
 
         //set the image using Glide
-        (Glide.with(context).load(cities[position].getImage()).centerCrop()).into(viewHolder.cityImageView)
+        (Glide.with(context).load(cities[position].getImage())
+            .centerCrop())
+            .placeholder(R.drawable.loadinggif)
+            .into(viewHolder.cityImageView)
 
 
         return _convertView
@@ -59,7 +62,6 @@ class CityAdapter(private val cities : List<City>, private val context: Context)
         val cityImageView : ImageView = view.findViewById(R.id.cityImageView)
         val cityTextView : TextView = view.findViewById(R.id.cityTitleTextView)
     }
-
 }
 
 

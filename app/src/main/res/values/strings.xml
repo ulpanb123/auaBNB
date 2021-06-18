@@ -3,4 +3,5 @@
     <string name="default_price">500000 тг</string>
     <string name="default_hotelName">Ritz-Carlton</string>
     <string name="default_city_name">ALMATY</string>
+    <string name="refresh">Refresh</string>
 </resources>

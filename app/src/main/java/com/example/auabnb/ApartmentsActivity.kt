@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -18,6 +19,7 @@ import com.backendless.persistence.DataQueryBuilder
 import com.backendless.persistence.DataQueryBuilder.create
 import com.example.auabnb.databinding.ActivityApartmentsBinding
 import com.example.auabnb.databinding.ActivityCitiesBinding
+import com.facebook.shimmer.ShimmerFrameLayout
 import java.net.URI.create
 
 class ApartmentsActivity : AppCompatActivity()  {
@@ -27,6 +29,7 @@ class ApartmentsActivity : AppCompatActivity()  {
     private lateinit var listView : ListView
     private lateinit var cityId : String
     private lateinit var swipeRefresh : SwipeRefreshLayout
+    private lateinit var shimmerFrameLayout: ShimmerFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +37,12 @@ class ApartmentsActivity : AppCompatActivity()  {
         setContentView(R.layout.activity_cities)
 
         val binding : ActivityApartmentsBinding = setContentView(this, R.layout.activity_apartments)
+
         listView = binding.listViewApartments
+
         swipeRefresh = binding.apartmentsSwipeRefresh
+
+        shimmerFrameLayout = binding.shimmerFrameLayout
 
         cityId = intent.extras?.getString(CITY_ID_KEY, "") ?: cityId
 
@@ -65,6 +72,8 @@ class ApartmentsActivity : AppCompatActivity()  {
             override fun handleResponse(response: List<Apartment>?) {
                 swipeRefresh.isRefreshing = false
                 if (response != null) {
+                    shimmerFrameLayout.stopShimmer()
+                    shimmerFrameLayout.visibility = View.GONE
                     displayApartments(response)
                 }
             }

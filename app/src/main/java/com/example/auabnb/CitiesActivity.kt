@@ -7,14 +7,18 @@ import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ListView
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.backendless.Backendless
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.example.auabnb.databinding.ActivityCitiesBinding
+import com.facebook.shimmer.ShimmerFrameLayout
 
 class CitiesActivity : AppCompatActivity() {
 
@@ -22,6 +26,8 @@ class CitiesActivity : AppCompatActivity() {
     private lateinit var listView : ListView
     private lateinit var cities : List<City>
     private lateinit var swipeRefresh : SwipeRefreshLayout
+    private lateinit var pb_loader : ProgressBar
+    private lateinit var shimmerFrameLayout: ShimmerFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -34,6 +40,9 @@ class CitiesActivity : AppCompatActivity() {
 
         swipeRefresh = binding.swipeRefresh
 
+        shimmerFrameLayout = binding.shimmerFrameLayout
+
+
         val context: Context = applicationContext
 
         //initialize Backendless
@@ -45,6 +54,7 @@ class CitiesActivity : AppCompatActivity() {
         }
 
         downloadCities()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -76,6 +86,8 @@ class CitiesActivity : AppCompatActivity() {
                 swipeRefresh.isRefreshing = false
 
                 if (response != null) {
+                    shimmerFrameLayout.stopShimmer()
+                    shimmerFrameLayout.visibility = View.GONE
                     displayCities(response)
                 }
             }
